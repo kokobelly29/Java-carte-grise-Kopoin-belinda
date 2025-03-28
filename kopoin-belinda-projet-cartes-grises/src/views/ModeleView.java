@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ModeleView extends JFrame {
     private ModeleController controller;
+    private Color pinkColor = new Color(255, 192, 203);
+    private Color backgroundColor = new Color(89, 117, 156); // Couleur de fond RGB(89, 117, 156)
 
     public ModeleView() {
         controller = new ModeleController();
@@ -17,6 +19,10 @@ public class ModeleView extends JFrame {
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        // Appliquer la couleur de fond à la fenêtre
+        getContentPane().setBackground(backgroundColor); // Couleur de fond du JFrame
+        getContentPane().setLayout(new BorderLayout()); // Utiliser BorderLayout pour le JFrame
 
         // Panel principal
         JPanel panel = new JPanel();
@@ -29,10 +35,14 @@ public class ModeleView extends JFrame {
 
             // Créer un panel pour chaque modèle avec un FlowLayout
             JPanel modelePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            modelePanel.setBackground(backgroundColor);
+            modelePanel.setOpaque(true);
             JLabel modeleLabel = new JLabel(modele.getNom_modele() + " (Marque : " + nomMarque + ")");
 
             // Bouton Modifier
             JButton modifyButton = new JButton("Modifier");
+            modifyButton.setBackground(pinkColor);
+            modifyButton.setForeground(Color.WHITE);
             modifyButton.addActionListener(e -> {
                 JTextField nomField = new JTextField(modele.getNom_modele());
                 JTextField marqueField = new JTextField(nomMarque);
@@ -41,7 +51,8 @@ public class ModeleView extends JFrame {
                         "Nom de la marque associée :", marqueField
                 };
 
-                int option = JOptionPane.showConfirmDialog(this, message, "Modifier un Modèle", JOptionPane.OK_CANCEL_OPTION);
+                int option = JOptionPane.showConfirmDialog(this, message, "Modifier un Modèle",
+                        JOptionPane.OK_CANCEL_OPTION);
                 if (option == JOptionPane.OK_OPTION) {
                     try {
                         String newNom = nomField.getText();
@@ -56,6 +67,8 @@ public class ModeleView extends JFrame {
 
             // Bouton Supprimer
             JButton deleteButton = new JButton("Supprimer");
+            deleteButton.setBackground(pinkColor);
+            deleteButton.setForeground(Color.WHITE);
             deleteButton.addActionListener(e -> {
                 int confirmation = JOptionPane.showConfirmDialog(this,
                         "Êtes-vous sûr de vouloir supprimer ce modèle ?",
@@ -79,9 +92,13 @@ public class ModeleView extends JFrame {
 
         // Panel pour les boutons "Ajouter" et "Retour"
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(backgroundColor); // Couleur de fond du panneau de boutons
+        buttonPanel.setOpaque(true); // Assurez-vous que le panneau est opaque
 
         // Bouton "Ajouter un Modèle"
         JButton addButton = new JButton("Ajouter un Modèle");
+        addButton.setBackground(pinkColor); // Appliquer la couleur rose au bouton
+        addButton.setForeground(Color.WHITE);
         addButton.addActionListener(e -> {
             JTextField nomField = new JTextField();
             JTextField marqueField = new JTextField();
@@ -90,7 +107,8 @@ public class ModeleView extends JFrame {
                     "Nom de la marque associée :", marqueField
             };
 
-            int option = JOptionPane.showConfirmDialog(this, message, "Ajouter un Modèle", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(this, message, "Ajouter un Modèle",
+                    JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
                 try {
                     String nom = nomField.getText();
@@ -105,6 +123,8 @@ public class ModeleView extends JFrame {
 
         // Bouton "Retour"
         JButton backButton = new JButton("Retour");
+        backButton.setBackground(pinkColor); // Appliquer la couleur rose au bouton
+        backButton.setForeground(Color.WHITE);
         backButton.addActionListener(e -> dispose());
 
         // Ajouter les boutons au panel

@@ -9,6 +9,8 @@ import java.util.List;
 
 public class VehiculeView extends JFrame {
     private VehiculeController controller;
+    private Color pinkColor = new Color(255, 192, 203);
+    private Color backgroundColor = new Color(89, 117, 156); // Couleur de fond RGB(89, 117, 156)
 
     public VehiculeView() {
         controller = new VehiculeController();  // Initialisation du contrôleur.
@@ -17,6 +19,11 @@ public class VehiculeView extends JFrame {
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        // Appliquer la couleur de fond à la fenêtre
+        getContentPane().setBackground(backgroundColor); // Couleur de fond du JFrame
+        getContentPane().setLayout(new BorderLayout()); // Utiliser BorderLayout pour le JFrame
+
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));  // Utilisation de BoxLayout pour une disposition en colonne
@@ -27,10 +34,14 @@ public class VehiculeView extends JFrame {
 
             // Panneau pour chaque véhicule
             JPanel vehiculePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            vehiculePanel.setBackground(backgroundColor);
+            vehiculePanel.setOpaque(true);
             JLabel vehiculeLabel = new JLabel(vehicule.getMatricule() + " (Modèle : " + nomModele + ")");
 
             // Bouton pour modifier le véhicule
             JButton modifyButton = new JButton("Modifier");
+            modifyButton.setBackground(pinkColor); // Appliquer la couleur ro
+            modifyButton.setForeground(Color.WHITE);
             modifyButton.addActionListener(e -> {
                 // Créer des champs de texte pour tous les champs du véhicule
                 JTextField matriculeField = new JTextField(vehicule.getMatricule());
@@ -73,6 +84,8 @@ public class VehiculeView extends JFrame {
 
             // Bouton pour supprimer le véhicule
             JButton deleteButton = new JButton("Supprimer");
+            deleteButton.setBackground(pinkColor); // Appliquer la couleur pinkColor
+            deleteButton.setForeground(Color.WHITE);
             deleteButton.addActionListener(e -> {
                 int confirmation = JOptionPane.showConfirmDialog(this,
                         "Êtes-vous sûr de vouloir supprimer ce véhicule ?",
@@ -96,9 +109,14 @@ public class VehiculeView extends JFrame {
 
         // Panneau pour les boutons "Ajouter" et "Retour"
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(backgroundColor); // Couleur de fond du panneau de boutons
+        buttonPanel.setOpaque(true); // Assurez-vous que le panneau est opaque
+
 
         // Bouton "Ajouter un Véhicule"
         JButton addButton = new JButton("Ajouter un Véhicule");
+        addButton.setBackground(pinkColor); // Appliquer la couleur pinkColor
+        addButton.setForeground(Color.WHITE);
         addButton.addActionListener(e -> {
             // Créer des champs de texte pour saisir les informations du véhicule
             JTextField matriculeField = new JTextField();
@@ -140,6 +158,8 @@ public class VehiculeView extends JFrame {
 
         // Bouton "Retour" pour fermer la fenêtre
         JButton backButton = new JButton("Retour");
+        backButton.setBackground(pinkColor); // Appliquer la couleur pinkColor
+        backButton.setForeground(Color.WHITE);
         backButton.addActionListener(e -> dispose());
 
         // Ajouter les boutons au panneau

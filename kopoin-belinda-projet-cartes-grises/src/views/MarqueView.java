@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MarqueView extends JFrame {
     private MarqueController controller;
+    private Color backgroundColor = new Color(89, 117, 156); // Couleur de fond RGB(89, 117, 156)
+    private Color pinkColor = new Color(255, 192, 203); // Couleur rose pour les boutons
+    private Color blackColor = Color.BLACK; // Couleur noire pour le texte
 
     public MarqueView() {
         controller = new MarqueController();
@@ -18,22 +21,30 @@ public class MarqueView extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        Color customBackground = new Color(89, 117, 156); // (R, G, B)
+        // Appliquer la couleur de fond à la fenêtre
+        getContentPane().setBackground(backgroundColor); // Couleur de fond du JFrame
+        getContentPane().setLayout(new BorderLayout()); // Utiliser BorderLayout pour le JFrame
 
-        //Appliquer la couleur de fond
-        getContentPane().setBackground(customBackground);
 
         // Panel principal
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(backgroundColor); // Couleur de fond du JPanel
+        panel.setOpaque(true); // Assurez-vous que le panneau est opaque
 
         // Charger les marques
         List<Marque> marques = controller.getAllMarques();
         for (Marque marque : marques) {
             JPanel marquePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            marquePanel.setBackground(backgroundColor); // Couleur de fond du panneau de marque
+            marquePanel.setOpaque(true); // Assurez-vous que le panneau est opaque
+
             JLabel marqueLabel = new JLabel(marque.getNomMarque());
+            marqueLabel.setForeground(blackColor); // Appliquer la couleur noire au texte
 
             JButton modifyButton = new JButton("Modifier");
+            modifyButton.setBackground(pinkColor); // Appliquer la couleur rose au bouton
+            modifyButton.setForeground(Color.WHITE); // Couleur du texte en blanc
             modifyButton.addActionListener(e -> {
                 String newName = JOptionPane.showInputDialog(this, "Nouveau nom :", marque.getNomMarque());
                 if (newName != null && !newName.isEmpty()) {
@@ -43,6 +54,8 @@ public class MarqueView extends JFrame {
             });
 
             JButton deleteButton = new JButton("Supprimer");
+            deleteButton.setBackground(pinkColor); // Appliquer la couleur rose au bouton
+            deleteButton.setForeground(Color.WHITE); // Couleur du texte en blanc
             deleteButton.addActionListener(e -> {
                 controller.deleteMarque(marque.getIdMarque());
                 refreshView();
@@ -56,9 +69,12 @@ public class MarqueView extends JFrame {
 
         // Panel pour les boutons "Ajouter" et "Retour"
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(backgroundColor); // Couleur de fond du panneau de boutons
+        buttonPanel.setOpaque(true); // Assurez-vous que le panneau est opaque
 
-        // Bouton d'ajout
         JButton addButton = new JButton("Ajouter une marque");
+        addButton.setBackground(pinkColor); // Appliquer la couleur rose au bouton
+        addButton.setForeground(Color.WHITE); // Couleur du texte en blanc
         addButton.addActionListener(e -> {
             String newName = JOptionPane.showInputDialog(this, "Nom de la nouvelle marque :");
             if (newName != null && !newName.isEmpty()) {
@@ -67,11 +83,11 @@ public class MarqueView extends JFrame {
             }
         });
 
-        // Bouton retour
         JButton backButton = new JButton("Retour");
+        backButton.setBackground(pinkColor); // Appliquer la couleur rose au bouton
+        backButton.setForeground(Color.WHITE); // Couleur du texte en blanc
         backButton.addActionListener(e -> dispose());
 
-        // Ajouter les boutons au panel
         buttonPanel.add(addButton);
         buttonPanel.add(backButton);
 
@@ -79,12 +95,12 @@ public class MarqueView extends JFrame {
 
         // Scroller
         JScrollPane scrollPane = new JScrollPane(panel);
-        add(scrollPane);
+        add(scrollPane, BorderLayout.CENTER); // Ajouter le panneau principal au centre
 
         setVisible(true);
     }
 
-    // Rafraîchir la vue
+
     private void refreshView() {
         dispose();
         new MarqueView();

@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ProprietaireView extends JFrame {
     private ProprietaireController controller;
+    private Color pinkColor = new Color(255, 192, 203);
+    private Color backgroundColor = new Color(89, 117, 156); // Couleur de fond RGB(89, 117, 156)
 
     public ProprietaireView() {
         controller = new ProprietaireController();
@@ -18,6 +20,10 @@ public class ProprietaireView extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Appliquer la couleur de fond à la fenêtre
+        getContentPane().setBackground(backgroundColor); // Couleur de fond du JFrame
+        getContentPane().setLayout(new BorderLayout()); // Utiliser BorderLayout pour le JFrame
+
         // Panel principal
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -26,12 +32,16 @@ public class ProprietaireView extends JFrame {
         List<Proprietaire> proprietaires = controller.getAllProprietaires();
         for (Proprietaire proprietaire : proprietaires) {
             JPanel proprietairePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            proprietairePanel.setBackground(backgroundColor);
+            proprietairePanel.setOpaque(true);
             JLabel proprietaireLabel = new JLabel(
                     proprietaire.getNom() + " " + proprietaire.getPrenom() +
                             " (" + proprietaire.getAdresse() + ", " +
                             proprietaire.getCp() + " " + proprietaire.getVille() + ")");
 
             JButton modifyButton = new JButton("Modifier");
+            modifyButton.setBackground(pinkColor); // Appliquer la couleur rose
+            modifyButton.setForeground(Color.WHITE);
             modifyButton.addActionListener(e -> {
                 JTextField nomField = new JTextField(proprietaire.getNom());
                 JTextField prenomField = new JTextField(proprietaire.getPrenom());
@@ -62,6 +72,8 @@ public class ProprietaireView extends JFrame {
             });
 
             JButton deleteButton = new JButton("Supprimer");
+            deleteButton.setBackground(pinkColor); // Appliquer la couleur rose
+            deleteButton.setForeground(Color.WHITE);
             deleteButton.addActionListener(e -> {
                 int option = JOptionPane.showConfirmDialog(
                         this,
@@ -82,9 +94,13 @@ public class ProprietaireView extends JFrame {
 
         // Panel pour les boutons Ajouter et Retour
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        actionPanel.setBackground(backgroundColor); // Couleur de fond du panneau de boutons
+        actionPanel.setOpaque(true); // Assurez-vous que le panneau est opaque
 
         // Bouton d'ajout
         JButton addButton = new JButton("Ajouter un propriétaire");
+        addButton.setBackground(pinkColor); // Appliquer la couleur rose
+        addButton.setForeground(Color.WHITE);
         addButton.addActionListener(e -> {
             JTextField nomField = new JTextField();
             JTextField prenomField = new JTextField();
@@ -115,6 +131,8 @@ public class ProprietaireView extends JFrame {
 
         // Bouton Retour
         JButton backButton = new JButton("Retour");
+        backButton.setBackground(pinkColor); // Appliquer la couleur rose
+        backButton.setForeground(Color.WHITE);
         backButton.addActionListener(e -> dispose());
 
         // Ajouter les boutons au panel d'action
